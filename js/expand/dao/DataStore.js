@@ -16,11 +16,11 @@ export default class DataStore {
   fetchData(url) {
     return new Promise((resolve, reject) => {
       this.fetchLocalData(url)
-        .then((warppedData) => {
+        .then((warppedData) => {      
           if (warppedData && DataStore.checkTimestampValid(warppedData.timestamp)) {
             resolve(warppedData);
           } else {
-            this.fetchData(url)
+            this.fetchNetData(url)
               .then((data) => {
                 resolve(this._warpData(data));
               })
@@ -78,8 +78,8 @@ export default class DataStore {
           }
           throw new Error('Network resonse was not ok.');
         })
-        .then((response) => {
-          this.saveData(url, responseData);
+        .then((responseData) => {
+          this.saveData(url, responseData ) ;
           resolve(responseData);
         })
         .catch((error) => {
@@ -94,7 +94,7 @@ export default class DataStore {
    * @param {*} data 
    */
   _warpData(data) {
-    return { data: data, timestamp: new date().getTime() };
+    return { data: data, timestamp: new Date().getTime() };
   }
 
 
