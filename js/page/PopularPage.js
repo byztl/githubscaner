@@ -5,10 +5,11 @@ import Toast from 'react-native-easy-toast';
 import { connect } from 'react-redux';
 import actions from '../action/index';
 import PopularItem from '../common/PopularItem';
+import NavigationBar from '../common/NavigationBar';
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
-const THEME_COLOR = 'red';
+const THEME_COLOR = '#678';
 
 type Props = {};
 export default class PopularPage extends Component<Props> {
@@ -31,6 +32,15 @@ export default class PopularPage extends Component<Props> {
   }
 
   render() {
+    let statusBar = {
+      backgroundColor: THEME_COLOR,
+      barStyle: 'light-content',
+    }
+    let navgiationBar = <NavigationBar 
+      title={'最热'}
+      statusBar={statusBar}
+      style={{backgroundColor: THEME_COLOR}}
+    />
     const TabNavigator = createMaterialTopTabNavigator(
       this._genTabs(), {
         tabBarOptions: {
@@ -46,6 +56,7 @@ export default class PopularPage extends Component<Props> {
       }
     )
     return <View style={{ flex: 1, marginTop: 44 }}>
+      {navgiationBar}
       <TabNavigator />
     </View>
   }
@@ -134,9 +145,17 @@ class PopularTab extends Component<Props> {
           }
           ListFooterComponent={() => this.genIndicator()}
           onEndReached={() => {
-            this.loadData(true);
+            setTimeout(() => {
+              if (this.canLoadMore) {
+                this.loadData(true);
+                this.canLoadMore = false;
+              }
+            }, 100)
           }}
-          onEndReachedThreshold={0.5}
+          onEndReachedThreshold={0.1}
+          onScrollBeginDrag={() => {
+            this.canLoadMore = true;
+          }}
         />
         <Toast 
           ref={'toast'}
