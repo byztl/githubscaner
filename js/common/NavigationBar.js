@@ -19,7 +19,7 @@ export default class NavigationBar extends Component {
     style: ViewPropTypes.style,
     title: PropTypes.string,
     titleView: PropTypes.element,
-    titleLayoutStyle: ViewPropTypes.string,
+    titleLayoutStyle: ViewPropTypes.style,
     hide: PropTypes.bool,
     statusBar: PropTypes.shape(StatusBarShape),
     rightButton: PropTypes.element,

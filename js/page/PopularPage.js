@@ -1,11 +1,13 @@
 import React, { Component } from 'react';
-import { FlatList, ActivityIndicator, StyleSheet, Text, View, RefreshControl } from 'react-native';
+import { FlatList, ActivityIndicator, StyleSheet, Text, View, RefreshControl, DeviceInfo } from 'react-native';
 import { createMaterialTopTabNavigator } from "react-navigation";
 import Toast from 'react-native-easy-toast';
 import { connect } from 'react-redux';
 import actions from '../action/index';
 import PopularItem from '../common/PopularItem';
 import NavigationBar from '../common/NavigationBar';
+import NavigationUtil from '../navigator/NavigationUtil';
+import DetailPage from '../page/DetailPage';
 
 const URL = 'https://api.github.com/search/repositories?q=';
 const QUERY_STR = '&sort=stars';
@@ -48,14 +50,15 @@ export default class PopularPage extends Component<Props> {
           upperCaseLabel: false,
           scrollEnabled: true,
           style: {
-            backgroundColor: '#678'
+            backgroundColor: '#678',
+            height: 30
           },
           indicatorStyle: styles.indicatorStyle,
           labelStyle: styles.labelStyle
         }
       }
     )
-    return <View style={{ flex: 1, marginTop: 44 }}>
+    return <View style={{ flex: 1, marginTop: DeviceInfo.isIPhoneX_deprecated ? 30 : 0}}>
       {navgiationBar}
       <TabNavigator />
     </View>
@@ -110,7 +113,9 @@ class PopularTab extends Component<Props> {
     return <PopularItem 
       item={item}
       onSelect={() => {
-
+        NavigationUtil.goPage({
+          projectModel: item
+        }, 'DetailPage')
       }}
     />
   }
@@ -186,7 +191,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#F5FCFF',
   },
   tabStyle: {
-    minWidth: 30
+    // minWidth: 30
+    padding: 0
   },
   indicatorStyle: {
     height: 2,
@@ -194,8 +200,7 @@ const styles = StyleSheet.create({
   },
   labelStyle: {
     fontSize: 13,
-    marginTop: 6,
-    marginBottom: 6
+    margin: 0,
   },
   indicatorContainer: {
     alignItems: 'center'

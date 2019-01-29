@@ -3637,9 +3637,9 @@
       </map>
     </option>
   </component>
-  <component name="ProjectFrameBounds">
-    <option name="x" value="2184" />
-    <option name="y" value="30" />
+  <component name="ProjectFrameBounds" extendedState="1">
+    <option name="x" value="1912" />
+    <option name="y" value="23" />
     <option name="width" value="1400" />
     <option name="height" value="915" />
   </component>
@@ -3648,8 +3648,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="AndroidView" />
       <pane id="ProjectPane" />
     </panes>
@@ -3788,9 +3788,9 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="2184" y="30" width="1400" height="915" extended-state="0" />
+    <frame x="1912" y="23" width="1400" height="915" extended-state="1" />
     <layout>
-      <window_info anchor="bottom" id="Android Profiler" order="7" />
+      <window_info anchor="bottom" id="Android Profiler" order="7" show_stripe_button="false" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="right" id="Palette&#9;" order="3" />
       <window_info id="Image Layers" order="2" />
