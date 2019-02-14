@@ -1,19 +1,19 @@
 import Types from '../types';
 import DataStore, { FLAG_STORAGE } from '../../expand/dao/DataStore';
-import { handleData } from '../ActionUtil';
+import { handleData, _projectModels } from '../ActionUtil';
 
 /**
  * 
  * @param {} storeName 
  * @param {*} url 
  */
-export function onRefreshPopular(storeName, url, PageSize) {
+export function onRefreshPopular(storeName, url, PageSize, favoriteDao) {
   return dispatch => {
     dispatch({ type: Types.POPULAR_REFRESH, storeName });
     let dataStore = new DataStore();
     dataStore.fetchData(url, FLAG_STORAGE.flag_popular) //异步 action 与数据流
       .then(data => {
-        handleData(Types.POPULAR_REFRESH_SUCCESS, dispatch, storeName, data, PageSize)
+        handleData(Types.POPULAR_REFRESH_SUCCESS, dispatch, storeName, data, PageSize, favoriteDao)
       })
       .catch(error => {
         console.error(error);
@@ -26,7 +26,7 @@ export function onRefreshPopular(storeName, url, PageSize) {
   }
 }
 
-export function onLoadMorePopular(storeName, pageIndex, pageSize, dataArray = [], callBack) {
+export function onLoadMorePopular(storeName, pageIndex, pageSize, dataArray = [], favoriteDao, callBack) {
   return dispatch => {
     setTimeout(() => {
       if ((pageIndex - 1) * pageSize >= dataArray.length) { // 已加载完全部数据
@@ -38,17 +38,19 @@ export function onLoadMorePopular(storeName, pageIndex, pageSize, dataArray = []
           error: 'no more',
           storeName: storeName,
           pageIndex: --pageIndex,
-          projectModes: dataArray
         })
       } else {
         // 本次可载入的最大数量
         let max = pageSize * pageIndex > dataArray.length ? dataArray.length : pageIndex * pageSize;
-        dispatch({
-          type: Types.POPULAR_LOAD_MORE_SUCCESS,
-          storeName,
-          pageIndex,
-          projectModes: dataArray.slice(0, max),
+        _projectModels(dataArray.slice(0, max), favoriteDao, data => {
+          dispatch({
+            type: Types.POPULAR_LOAD_MORE_SUCCESS,
+            storeName,
+            pageIndex,
+            projectModels: data
+          })
         })
+
       }
     }, 500)
   }

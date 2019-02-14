@@ -31,9 +31,9 @@ export class MyPage extends Component<Props> {
     </View>
   }
 
-  getLeftButton(callBack) {
+  getLeftButton(callback) {
     return <TouchableOpacity style={{ padding: 8, paddingLeft: 12 }}
-      onPress={callBack}
+      onPress={callback}
     >
       <Ionicons
         name={'ios-arrow-back'}

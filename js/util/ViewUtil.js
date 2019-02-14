@@ -6,12 +6,12 @@ export default class ViewUtil {
   /**
    * 
    * 返回按钮
-   * @param {回调方法} callBack 
+   * @param {回调方法} callback 
    */
-  static getLeftBackButton(callBack) {
+  static getLeftBackButton(callback) {
     return <TouchableOpacity 
       style={{padding: 8, paddingLeft: 12}}
-      onPress={callBack}>
+      onPress={callback}>
       <Ionicons 
         name={'ios-arrow-back'}
         size={26}
@@ -23,12 +23,12 @@ export default class ViewUtil {
   /**
    * 
    * 分享按钮
-   * @param {回调方法} callBack 
+   * @param {回调方法} callback 
    */
-  static getShareButton(callBack) {
+  static getShareButton(callback) {
     return <TouchableOpacity
       underlayColor={'transparent'}
-      onPress={callBack}
+      onPress={callback}
     >
       <Ionicons 
         name={'md-share'}

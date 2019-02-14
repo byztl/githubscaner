@@ -49,6 +49,7 @@ export default class TrendingDialog extends Component {
                 onPress={() => {
                   onSelect(arr[i])
                 }}
+                key={i}
                 underlayColor='transparent'
               >
                 <View style={styles.text_container}>
