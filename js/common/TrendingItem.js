@@ -35,7 +35,7 @@ export default class TrendingItem extends BaseItem {
           <View style={styles.row}>
             <View style={styles.row}>
               <Text>Built by:</Text>
-              {item.contributors.map((result, i, arr) => {
+              {item.contributors && item.contributors.map((result, i, arr) => {
                 return <Image
                   key={i}
                   style={{ height: 22, width: 22, margin: 2 }}

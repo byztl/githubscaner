@@ -76,6 +76,16 @@ export default function onAction(state = defaultState, action) {
         }
       };
       break;
+
+    case Types.FLUSH_POPULAR_FAVORITE: // 上拉加载更多失败
+      return {
+        ...state,
+        [action.storeName]: {
+          ...state[action.storeName],
+          projectModels: action.projectModels,
+        }
+      };
+      break;
     default:
       return state;
   }

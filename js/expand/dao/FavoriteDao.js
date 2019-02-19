@@ -70,12 +70,12 @@ export default class FavoriteDao {
       this.getFavoriteKeys().then((keys) => {
         let items = [];
         if (keys) {
-          AsyncStorage.multiGet(key, (err, stores) => {
+          AsyncStorage.multiGet(keys, (err, stores) => {
             try {
               stores.map((result, i, store) => {
                 let key = store[i][0];
-                let value = store[i][i];
-                if (value) items.push(JSON.stringify(value));
+                let value = store[i][1];
+                if (value) items.push(JSON.parse(value));
               });
               resolve(items)
             } catch (error) {
@@ -83,7 +83,7 @@ export default class FavoriteDao {
             }
           })
         } else {
-          reslove(items);
+          resolve(items);
         }
       }).catch((e) => {
         reject(e);

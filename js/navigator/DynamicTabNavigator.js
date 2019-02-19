@@ -12,8 +12,9 @@ import Mypage from "../page/MyPage";
 import MaterialIcons from "react-native-vector-icons/MaterialIcons";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Entypo from "react-native-vector-icons/Entypo";
-import NavigationUtil from "./NavigationUtil";
 import { BottomTabBar } from "react-navigation-tabs";
+import EventBus from 'react-native-event-bus';
+import EventTypes from '../util/EventTypes';
 type Props = {};
 
 // 配置页面
@@ -26,7 +27,7 @@ const TABS = {
         <MaterialIcons
           name={'whatshot'}
           size={26}
-          style={{ color: tintColor }}
+          style={{ color: tintColor }} 
         />
       ),
     }
@@ -95,7 +96,14 @@ export class DynamicTabNavigator extends Component<Props> {
 
   render() {
     const Tab = this._tabNavigator();
-    return <Tab></Tab>
+    return <Tab
+      onNavigationStateChange={(prevState, newState, action) => {
+        EventBus.getInstance().fireEvent(EventTypes.bottom_tab_select, {
+          from: prevState.index,
+          to: newState.index
+        })
+      }} 
+    ></Tab>
   }
 }
 

@@ -1,58 +1,32 @@
 import Types from '../types';
 import DataStore, { FLAG_STORAGE } from '../../expand/dao/DataStore';
 import { handleData, _projectModels } from '../ActionUtil';
+import FavoriteDao from '../../expand/dao/FavoriteDao';
+import ProjectModel from '../../model/ProjectModel';
 
 /**
  * 
+ * 加载收藏的项目
  * @param {} storeName 
  * @param {*} url 
  */
 export function onLoadFavoriteData(flag, isShowLoading) {
   return dispatch => {
-    dispatch({ type: Types.POPULAR_REFRESH, storeName });
+    if (isShowLoading) {
+      dispatch({ type: Types.FAVORITE_LOAD_DATA, flag });
+    }
     let dataStore = new DataStore();
-    dataStore.fetchData(url, FLAG_STORAGE.flag_popular) //异步 action 与数据流
-      .then(data => {
-        handleData(Types.POPULAR_REFRESH_SUCCESS, dispatch, storeName, data, PageSize, favoriteDao)
-      })
-      .catch(error => {
-        console.error(error);
-        dispatch({
-          type: Types.POPULAR_REFRESH_FAIL,
-          storeName,
-          error
+    new FavoriteDao(flag).getAllItems()
+      .then(items => {
+        let resultData = [];
+        items.forEach(item => {
+          resultData.push(new ProjectModel(item, true));
         });
+        dispatch({ type: Types.FAVORITE_LOAD_SUCCESS, projectModels: resultData, storeName: flag })
+      })
+      .catch(e => {
+        console.log(e);
+        dispatch({ type: Types.FAVORITE_LOAD_FAIL, error: e, storeName: flag })
       })
   }
 }
-
-export function onLoadMorePopular(storeName, pageIndex, pageSize, dataArray = [], favoriteDao, callback) {
-  return dispatch => {
-    setTimeout(() => {
-      if ((pageIndex - 1) * pageSize >= dataArray.length) { // 已加载完全部数据
-        if (typeof callback === 'function') {
-          callback('no more')
-        }
-        dispatch({
-          type: Types.POPULAR_LOAD_MORE_FAIL,
-          error: 'no more',
-          storeName: storeName,
-          pageIndex: --pageIndex,
-        })
-      } else {
-        // 本次可载入的最大数量
-        let max = pageSize * pageIndex > dataArray.length ? dataArray.length : pageIndex * pageSize;
-        _projectModels(dataArray.slice(0, max), favoriteDao, data => {
-          dispatch({
-            type: Types.POPULAR_LOAD_MORE_SUCCESS,
-            storeName,
-            pageIndex,
-            projectModels: data
-          })
-        })
-
-      }
-    }, 500)
-  }
-}
-
