@@ -7,11 +7,11 @@ import {
 import WelcomePage from "../page/WelcomePage";
 import HomePage from "../page/HomePage";
 import DetailPage from "../page/DetailPage";
-import FetchDemoPage from "../page/FetchDemoPage";
 import AsyncStoragePage from "../page/AsyncStoragePage";
-import DataStoreDemoPage from "../page/DataStoreDemoPage";
 import { connect } from 'react-redux';
 import { createReactNavigationReduxMiddleware, reduxifyNavigator } from 'react-navigation-redux-helpers';
+import WebViewPage from "../page/WebViewPage";
+import AboutPage from "../page/about/AboutPage";
 
 export const rootCom = 'Init'; // 设置根路由
 
@@ -37,19 +37,16 @@ const MainNavigator = createStackNavigator({
       header: null,
     }
   },
-  FetchDemoPage: {
-    screen: FetchDemoPage,
+  WebViewPage: {
+    screen: WebViewPage,
     navigationOptions: {
+      header: null,
     }
   },
-  AsyncStoragePage: {
-    screen: AsyncStoragePage,
+  AboutPage: {
+    screen: AboutPage,
     navigationOptions: {
-    }
-  },
-  DataStoreDemoPage: {
-    screen: DataStoreDemoPage,
-    navigationOptions: {
+      header: null,
     }
   },
 });
