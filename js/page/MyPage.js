@@ -24,6 +24,10 @@ export class MyPage extends Component<Props> {
       case MORE_MENU.About:
         RouteName = 'AboutPage';
         break;
+      case MORE_MENU.About_Author:
+        RouteName = 'AboutMePage';
+        params.title = '关于作者';
+        break;
     
       default:
         break;

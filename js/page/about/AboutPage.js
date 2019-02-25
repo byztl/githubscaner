@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Platform, StyleSheet, Text, View, Button, TouchableOpacity, ScrollView } from 'react-native';
+import { Platform, StyleSheet, Text, View, Button, TouchableOpacity, ScrollView, Linking } from 'react-native';
 import NavigationBar from '../../common/NavigationBar';
 import { connect } from 'react-redux';
 import actions from '../../action/index';
@@ -21,7 +21,7 @@ export default class AboutPage extends Component<Props> {
     this.aboutCommon = new AboutCommon({
       ...this.params,
       navigation: this.props.navigation,
-      flagAbout: FLAG_ABOUT.flag_about_me,
+      flagAbout: FLAG_ABOUT.flag_about,
     }, data => this.setState({...data}));
     this.state = {
       data: myconfig
@@ -36,7 +36,20 @@ export default class AboutPage extends Component<Props> {
         params.title = '教程';
         params.url = 'https://www.baidu.com/';
         break;
-    
+      case MORE_MENU.Feedback:
+        const url = 'prefs:root=WIFI'
+        Linking.canOpenURL(url)
+          .then(support => {
+            if (!support) {
+              console.log('can\'t handle url:' + url);
+            } else {
+              Linking.openURL(url);
+            }
+          })
+          .catch(e => {
+            console.error('an error occor');
+          })
+        break;
       default:
         break;
     }
