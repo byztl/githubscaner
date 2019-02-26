@@ -52,7 +52,7 @@ export default class WebViewPage extends Component<Props> {
     let navgiationBar = <NavigationBar 
       title={this.state.title}
       style={{backgroundColor: THEME_COLOR}}
-      leftButton={ViewUtil.getLeftBackButton(() => this.onBackPress())}
+      leftButton={ViewUtil.getLeftBackButton(() => this.onBack())}
     />
 
     return (

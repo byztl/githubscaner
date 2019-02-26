@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { View, Linking } from 'react-native';
+import { View, Linking, Clipboard } from 'react-native';
+import Toast from 'react-native-easy-toast';
 import NavigationUtil from '../../navigator/NavigationUtil';
 import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MORE_MENU } from '../../common/MORE_MENU.js';
@@ -31,10 +32,28 @@ export default class AboutMePage extends Component<Props> {
   onClick(tab) {
     if (!tab) return;
     if (tab.url) {
-      NavigationUtil.goBack({
+      NavigationUtil.goPage({
         title: tab.title,
         url: tab.url
       }, 'WebViewPage')
+      return;
+    }
+    if (tab.account && tab.account.indexOf('@') > -1) {
+      let url = 'mailto://' + tab.account;
+      Linking.canOpenURL(url)
+        .then(supported => {
+          if (!supported) {
+            console.log('Can\'t handle url:' + url);
+          } else {
+            return Linking.openURL(url);
+          }
+        })
+        .catch(err => console.error('An error occurred', err));
+      return;
+    }
+    if (tab.account) {
+      Clipboard.setString(tab.account);
+      this.toast.show(tab.title + tab.account + '已复制到剪切板');
     }
   }
 
@@ -47,7 +66,7 @@ export default class AboutMePage extends Component<Props> {
       this.setState({
         [key]: !this.state[key]
       })
-    }, data.name, THEME_COLOR, Ionicons, data.icon, isShow? 'ios-arrow-up' : 'ios-arrow-down')
+    }, data.name, THEME_COLOR, Ionicons, data.icon, isShow ? 'ios-arrow-up' : 'ios-arrow-down')
   }
 
   renderItems(dic, isShowAccout) {
@@ -56,7 +75,7 @@ export default class AboutMePage extends Component<Props> {
     for (let i in dic) {
       let title = isShowAccout ? dic[i].title + ':' + dic[i].account : dic[i].title;
       views.push(
-        <View 
+        <View
           key={i}
         >
           {ViewUtil.getSettingItem(() => this.onClick(dic[i]), title, THEME_COLOR)}
@@ -73,18 +92,25 @@ export default class AboutMePage extends Component<Props> {
       <View style={GlobalStyles.line} />
       {this.state.showTurtorial ? this.renderItems(this.state.data.aboutMe.Tutorial.items) : null}
 
-      {this._item(this.state.data.aboutMe.Blog, this.state.showTurtorial, 'showBlog')}
+      {this._item(this.state.data.aboutMe.Blog, this.state.showBlog, 'showBlog')}
       <View style={GlobalStyles.line} />
-      {this.state.showBlog ? this.renderItems(this.state.data.aboutMe.Blog.items) : null}
+      {this.state.showBlog ? this.renderItems(this.state.data.aboutMe.Blog.items, false) : null}
 
-      {this._item(this.state.data.aboutMe.Contact, this.state.showTurtorial, 'showContact')}
+      {this._item(this.state.data.aboutMe.Contact, this.state.showContact, 'showContact')}
       <View style={GlobalStyles.line} />
-      {this.state.showContact ? this.renderItems(this.state.data.aboutMe.Contact.items) : null}
-      
-      {this._item(this.state.data.aboutMe.QQ, this.state.showTurtorial, 'showQQ')}
+      {this.state.showContact ? this.renderItems(this.state.data.aboutMe.Contact.items, true) : null}
+
+      {this._item(this.state.data.aboutMe.QQ, this.state.showQQ, 'showQQ')}
       <View style={GlobalStyles.line} />
-      {this.state.showQQ ? this.renderItems(this.state.data.aboutMe.QQ.items) : null}
+      {this.state.showQQ ? this.renderItems(this.state.data.aboutMe.QQ.items, true) : null}
     </View>
-    return this.aboutCommon.render(content, this.state.data.author);
+    return (<View style={{flex: 1}}>
+      {this.aboutCommon.render(content, this.state.data.author)}
+      <Toast
+        ref={toast => this.toast = toast}
+        position={'center'}
+      />
+    </View>)
+
   }
 }

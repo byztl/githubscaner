@@ -1,0 +1,23 @@
+[
+  {
+    "path": "stars:>1",
+    "name": "ALL",
+    "short_name": "ALL",
+    "checked": "true"
+  },
+  {
+    "path": "iOS",
+    "name": "iOS",
+    "checked": "true"
+  },
+  {
+    "path": "react-native",
+    "name": "react-native",
+    "checked": "true"
+  },
+  {
+    "path": "MySQL",
+    "name": "MySQL",
+    "checked": "true"
+  }
+]

@@ -36,6 +36,10 @@ export default class AboutPage extends Component<Props> {
         params.title = '教程';
         params.url = 'https://www.baidu.com/';
         break;
+      case MORE_MENU.About_Author:
+        RouteName = 'AboutMePage';
+        params.title = '关于作者';
+        break;
       case MORE_MENU.Feedback:
         const url = 'prefs:root=WIFI'
         Linking.canOpenURL(url)
