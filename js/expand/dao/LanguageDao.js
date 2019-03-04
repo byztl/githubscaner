@@ -1,9 +1,8 @@
 import React from 'react';
 import { AsyncStorage } from 'react-native';
-import config from '../../res/config';
-import '../../res/config.json';
+import '../../res/keys.json';
 import languages from '../../res/languages';
-import keys from '../../res/config';
+import keys from '../../res/keys';
 
 export const FLAG_LANGUAGE = {flag_dao_language: 'flag_dao_language', flag_dao_key: 'flag_dao_key'};
 export default class LanguageDao {
