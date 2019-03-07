@@ -4,10 +4,10 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 
 export const MORE_MENU = {
-  Costom_Language: {name: '自定义语言', Icons: Ionicons, icon: 'md-checkbox-outline',},
+  Custom_Language: {name: '自定义语言', Icons: Ionicons, icon: 'md-checkbox-outline',},
   Sort_Language: {name: '语言排序', Icons: MaterialCommunityIcons, icon: 'sort',},
-  Costom_Theme: {name: '自定义主题', Icons: Octicons, icon: 'ios-color-palette',},
-  Costom_Key: {name: '自定义标签', Icons: Ionicons, icon: 'md-checkbox-outline',},
+  Custom_Theme: {name: '自定义主题', Icons: Octicons, icon: 'ios-color-palette',},
+  Custom_Key: {name: '自定义标签', Icons: Ionicons, icon: 'md-checkbox-outline',},
   Sort_Key: {name: '标签排序', Icons: MaterialCommunityIcons, icon: 'sort',},
   Remove_Key: {name: '标签移除', Icons: Ionicons, icon: 'md-remove',},
   About_Author: {name: '关于作者', Icons: Octicons, icon: 'smiley',},

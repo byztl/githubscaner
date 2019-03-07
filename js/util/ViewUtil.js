@@ -13,21 +13,21 @@ export default class ViewUtil {
         onPress={callback}
         style={styles.setting_item_container}
       >
-        <View style={{alignItems: 'center', flexDirection: 'row'}}>
-          {Icons && icon ? 
-            <Icons 
+        <View style={{ alignItems: 'center', flexDirection: 'row' }}>
+          {Icons && icon ?
+            <Icons
               name={icon}
               size={16}
-              style={{color: color, marginRight: 10}}
-            /> : 
-            <View style={{opacity: 1, width: 16, height: 16, marginRight: 10}}/>
+              style={{ color: color, marginRight: 10 }}
+            /> :
+            <View style={{ opacity: 1, width: 16, height: 16, marginRight: 10 }} />
           }
           <Text>{text}</Text>
         </View>
-        <Ionicons 
+        <Ionicons
           name={expandableIcon ? expandableIcon : 'ios-arrow-forward'}
           size={16}
-          style={{marginRight: 10, alignSelf: 'center', color: color || 'black'}}
+          style={{ marginRight: 10, alignSelf: 'center', color: color || 'black' }}
         />
       </TouchableOpacity>
     )
@@ -38,16 +38,24 @@ export default class ViewUtil {
    * @param {回调方法} callback 
    */
   static getLeftBackButton(callback) {
-    return <TouchableOpacity 
-      style={{padding: 8, paddingLeft: 12}}
+    return <TouchableOpacity
+      style={{ padding: 8, paddingLeft: 12 }}
       onPress={callback}>
-      <Ionicons 
+      <Ionicons
         name={'ios-arrow-back'}
         size={26}
-        style={{color: 'white'}}
+        style={{ color: 'white' }}
       />
-      </TouchableOpacity>
-  } 
+    </TouchableOpacity>
+  }
+
+  static getRightButton(title, callback) {
+    return <TouchableOpacity
+      style={{ alignContent: 'center' }}
+      onPress={callback}>
+      <Text style={{fontSize: 20, color: '#FFFFFF', marginRight: 10}}>{title}</Text>
+    </TouchableOpacity>
+  }
 
   /**
    * 
@@ -59,10 +67,10 @@ export default class ViewUtil {
       underlayColor={'transparent'}
       onPress={callback}
     >
-      <Ionicons 
+      <Ionicons
         name={'md-share'}
         size={20}
-        style={{opacity: 0.9, marginRight: 10, color: 'white'}}
+        style={{ opacity: 0.9, marginRight: 10, color: 'white' }}
       />
 
     </TouchableOpacity>

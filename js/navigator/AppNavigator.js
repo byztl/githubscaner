@@ -13,6 +13,7 @@ import { createReactNavigationReduxMiddleware, reduxifyNavigator } from 'react-n
 import WebViewPage from "../page/WebViewPage";
 import AboutPage from "../page/about/AboutPage";
 import AboutMePage from "../page/about/AboutMePage";
+import CustomKeyPage from "../page/CustomKeyPage";
 
 export const rootCom = 'Init'; // 设置根路由
 
@@ -52,6 +53,12 @@ const MainNavigator = createStackNavigator({
   },
   AboutMePage: {
     screen: AboutMePage,
+    navigationOptions: {
+      header: null,
+    }
+  },
+  CustomKeyPage: {
+    screen: CustomKeyPage,
     navigationOptions: {
       header: null,
     }

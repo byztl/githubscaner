@@ -11,6 +11,7 @@
     "prop-types": "^15.6.2",
     "react": "16.6.3",
     "react-native": "0.57.8",
+    "react-native-check-box": "^2.1.7",
     "react-native-easy-toast": "^1.1.0",
     "react-native-elements": "^0.19.1",
     "react-native-event-bus": "^1.0.0",

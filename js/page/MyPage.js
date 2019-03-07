@@ -9,6 +9,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { MORE_MENU } from '../common/MORE_MENU.js';
 import GlobalStyles from '../res/GlobalStyles';
 import ViewUtil from '../util/ViewUtil';
+import { FLAG_LANGUAGE } from '../expand/dao/LanguageDao';
 
 const THEME_COLOR = '#678';
 type Props = {};
@@ -27,6 +28,14 @@ export class MyPage extends Component<Props> {
       case MORE_MENU.About_Author:
         RouteName = 'AboutMePage';
         params.title = '关于作者';
+        break;
+      case MORE_MENU.Custom_Key:
+      case MORE_MENU.Custom_Language:
+      case MORE_MENU.Remove_Key:
+        RouteName = 'CustomKeyPage';
+        params.title = '自定义标签';
+        params.isRemoveKey = menu === MORE_MENU.Remove_Key;
+        params.flag = menu === MORE_MENU.Custom_Language ? FLAG_LANGUAGE.Custom_Language : FLAG_LANGUAGE.flag_dao_key;
         break;
     
       default:
@@ -79,7 +88,7 @@ export class MyPage extends Component<Props> {
           {/** 趋势管理 */}
           <Text style={styles.groupTitle}>趋势管理</Text>
           {/** 自定义语言 */}
-          {this.getItem(MORE_MENU.Costom_Language)}
+          {this.getItem(MORE_MENU.Custom_Language)}
           {/** 语言排序 */}
           <View style={GlobalStyles.line}/>
           {this.getItem(MORE_MENU.Sort_Language)}      
@@ -87,7 +96,7 @@ export class MyPage extends Component<Props> {
           {/** 最热管理 */}
           <Text style={styles.groupTitle}>最热管理</Text>    
           {/** 自定义标签 */}
-          {this.getItem(MORE_MENU.Costom_Key)}
+          {this.getItem(MORE_MENU.Custom_Key)}
           {/** 标签排序 */}
           <View style={GlobalStyles.line}/>
           {this.getItem(MORE_MENU.Sort_Key)}
@@ -98,7 +107,7 @@ export class MyPage extends Component<Props> {
           {/** 设置 */}
           <Text style={styles.groupTitle}>设置</Text>    
           {/** 自定义主题 */}
-          {this.getItem(MORE_MENU.Costom_Key)}
+          {this.getItem(MORE_MENU.Custom_Key)}
           {/** 关于作者 */}
           <View style={GlobalStyles.line}/>
           {this.getItem(MORE_MENU.About_Author)}
