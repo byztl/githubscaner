@@ -24,8 +24,8 @@
 ```
 
 ### 如何运行
-$ git clone git@github.com:byztl/githubscaner.git \n
-$ cd githubscaner \n
-$ npm install \n
-$ react-native link \n
-$ react-native run-ios \n
+$ git clone git@github.com:byztl/githubscaner.git   
+$ cd githubscaner   
+$ npm install   
+$ react-native link   
+$ react-native run-ios   
